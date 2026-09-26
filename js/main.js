@@ -21,6 +21,7 @@ navigationLinks.forEach((oneLink) => {
 //Zachycení formuláře odeslat
 const contactForm = document.querySelector(".contact-form");
 const buttonInput = document.querySelector(".contact-form__button");
+const formStatus = document.querySelector(".contact-form__status");
 
 contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -29,19 +30,34 @@ contactForm.addEventListener("submit", async (event) => {
 
     buttonInput.textContent = "Odesílám...";
     buttonInput.disabled = true;
+    formStatus.textContent = "";
+
+    formStatus.classList.remove("contact-form__status--success", "contact-form__status--error")
 
     try {
-        await new Promise((resolve) => {
-            setTimeout(resolve, 2000);
+        const response = await fetch("https://formspree.io/maenoaod", {
+            method: "POST",
+            body: formData,
+            headers: {
+                Accept: "application/json"
+            }
         });
 
-        console.log("Poptávka byla úspěšně odeslána.");
+        if (!response.ok) {
+            throw new Error("Odeslání formuláře se nezdařilo.");
+        }
+
+        formStatus.textContent ="Děkuji, poptávka byla úspěšně odeslána.";
+        formStatus.classList.add("contact-form__status--success")
+        contactForm.reset();
 
     } catch (error) {
-        console.error("Při odesílání nastala chyba.", error);
+        formStatus.textContent ="Poptávku se nepodařilo odeslat. Zkuste to prosím znovu.";
+        formStatus.classList.add("contact-form__status--error")
 
     } finally {
         buttonInput.disabled = false;
         buttonInput.textContent = "Odeslat poptávku";
+
     }
 });

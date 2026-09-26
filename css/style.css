@@ -684,6 +684,14 @@ body {
     gap: 8px;
 }
 
+.contact-form__status--success {
+    color: #22c55e;
+}
+
+.contact-form__status--error {
+    color: #ef4444;
+}
+
 .contact__eyebrow {
     color: var(--color-accent);
     font-size: 14px;
@@ -749,6 +757,34 @@ body {
     background-color: var(--color-accent);
     border-color: var(--color-accent);
     transform: translateY(-2px);
+}
+
+.contact-form__button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5
+}
+
+.contact-form__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.contact-form__privacy {
+    margin-top: 8px;
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.contact-form__privacy a {
+    color: var(--color-accent);
+}
+
+.contact-form__privacy a:hover {
+    text-decoration: none;
 }
 
 textarea.contact-form__field {
@@ -973,7 +1009,6 @@ textarea.contact-form__field {
     .about__grid{
         grid-template-columns: 1fr;
     }
-
 
     .about__visual {
         min-height: 200px;

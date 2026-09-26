@@ -335,7 +335,21 @@
                     <label class="contact-form__label" for="message">Zpráva</label>
                         <textarea class="contact-form__field" id="message" name="message" placeholder="Popište mi svou vizi." minlength="10" required></textarea>
 
+                <div class="contact-form__honeypot" aria-hidden="true">
+                     <label for="website">Webová stránka</label>
+                        <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off">
+                </div>
+
                     <button class="contact-form__button" type="submit">Odeslat poptávku</button>
+                    <p class="contact-form__status" aria-live="polite"></p>
+
+                    <p class="contact-form__privacy">
+                        Odesláním formuláře berete na vědomí zpracování osobních údajů
+                        za účelem vyřízení vaší poptávky.
+                        <a href="ochrana-osobnich-udaju.html">
+                            Více o zpracování osobních údajů
+                        </a>
+                    </p>
                 </form>
             </div>
             
