@@ -1,38 +1,63 @@
-//Hamburger menu
+// Hamburger menu
 const menuButton = document.querySelector(".header__menu-button");
 const navigation = document.querySelector(".header__nav");
-const navigationLinks = document.querySelectorAll(".header__nav-link")
 
-menuButton.addEventListener("click", () => {
-    const isOpen = navigation.classList.toggle("is-open")
+if (menuButton && navigation) {
 
-    menuButton.setAttribute("aria-expanded", isOpen ? "Zavřít navigace" : "Otevřít navigaci");
-})
+    const navigationLinks = document.querySelectorAll(".header__nav-link");
 
-//zavření hamburger menu po kliknutí
-navigationLinks.forEach((oneLink) => {
-    oneLink.addEventListener("click", () => {
+    menuButton.addEventListener("click", () => {
+        const isOpen = navigation.classList.toggle("is-open");
+
+        menuButton.setAttribute("aria-expanded", isOpen);
+
+        menuButton.setAttribute(
+            "aria-label",
+            isOpen ? "Zavřít navigaci" : "Otevřít navigaci"
+        );
+    });
+
+    // Zavření hamburger menu po kliknutí na odkaz
+    navigationLinks.forEach((oneLink) => {
+        oneLink.addEventListener("click", () => {
+            navigation.classList.remove("is-open");
+
+            menuButton.setAttribute("aria-expanded", false);
+            menuButton.setAttribute("aria-label", "Otevřít navigaci");
+        });
+    });
+
+    // Zavření hamburger menu po stisknutí klávesy Escape
+    document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Escape" && navigation.classList.contains("is-open")) {
         navigation.classList.remove("is-open");
-        menuButton.setAttribute("aria-expanded", false)
+
+        menuButton.setAttribute("aria-expanded", false);
         menuButton.setAttribute("aria-label", "Otevřít navigaci");
-})
+
+        menuButton.focus();
+    }
 });
+}
 
 //Zachycení formuláře odeslat
 const contactForm = document.querySelector(".contact-form");
-const buttonInput = document.querySelector(".contact-form__button");
-const formStatus = document.querySelector(".contact-form__status");
 
-contactForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+if (contactForm) {
+    const buttonInput = document.querySelector(".contact-form__button");
+    const formStatus = document.querySelector(".contact-form__status");
 
-    const formData = new FormData(contactForm);
+        contactForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
 
-    buttonInput.textContent = "Odesílám...";
-    buttonInput.disabled = true;
-    formStatus.textContent = "";
+            const formData = new FormData(contactForm);
 
-    formStatus.classList.remove("contact-form__status--success", "contact-form__status--error")
+            buttonInput.textContent = "Odesílám...";
+            buttonInput.disabled = true;
+            formStatus.textContent = "";
+
+            formStatus.classList.remove("contact-form__status--success", "contact-form__status--error")
 
     try {
         const response = await fetch("https://formspree.io/maenoaod", {
@@ -61,3 +86,11 @@ contactForm.addEventListener("submit", async (event) => {
 
     }
 });
+}
+
+//Aktualizace CopyRight data
+const currentYear = document.querySelector("#current-year");
+
+if (currentYear) {
+    currentYear.textContent = new Date().getFullYear();
+}
